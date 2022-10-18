@@ -1,0 +1,221 @@
+﻿<Page x:Class="KassaPO.Cashier"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      
+      xmlns:local="clr-namespace:KassaPO"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="1028" d:DesignWidth="1920"
+      Title="Cashier">
+    <Page.Resources>
+        <ControlTemplate x:Key="RoundTextBox" TargetType="{x:Type ComboBox}">
+            
+            <Border Background="{TemplateBinding Background}" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="25">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Search" Foreground="#4B9B8D" Width="35" Height="35" Margin="10,8,0,0"/>
+                        <TextBlock x:Name="tx1" Text="Search" FontSize="25" FontFamily="Inter" FontWeight="SemiBold" Foreground="#9B9999" Visibility="Hidden" Margin="10,9,0,0"/>
+                        
+                        
+
+
+
+                    </StackPanel>
+                    
+                    
+                    <TextBox Visibility="Visible"  HorizontalAlignment="Left" Width="1700" BorderThickness="0" Height="40" Style="{x:Null}" Margin="55,5,0,0" x:Name="PART_EditableTextBox" VerticalAlignment="Center" Focusable="True" Background="Transparent" TextChanged="PART_EditableTextBox_TextChanged"  />
+                    <Popup x:Name="PART_Popup"  PlacementTarget="{Binding ElementName=PART_EditableTextBox}" VerticalAlignment="Bottom"  AllowsTransparency="true" IsOpen="True"  HorizontalAlignment="Center" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
+
+                        <Border x:Name="dropDownBorder" BorderBrush="#357166" BorderThickness="2" Width="1800" CornerRadius="25" Margin="0,165,60,0"  Background="#4BA090">
+                                <ScrollViewer x:Name="DropDownScrollViewer">
+
+                                <ListView x:Name="ItemsPresenter" Background="#4BA090" Foreground="White" FontWeight="SemiBold" ItemsSource="{TemplateBinding ItemsSource}"  SelectionChanged="ItemsPresenter_SelectionChanged">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border CornerRadius="25">
+                                                    <Grid>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Width="251" Text="{Binding ProductCode}"/>
+                                                            <TextBlock Width="694" Text="{Binding Name}"/>
+                                                            <TextBlock Width="200" Text="{Binding Price, StringFormat=⠀{0}грн}"/>
+                                                        </StackPanel>
+                                                        <Border Height="2" VerticalAlignment="Bottom"/>
+                                                    </Grid>
+                                                </Border>
+                                                
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    
+                                
+                            </ScrollViewer>
+                            <!--<Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="30"/>
+                            </Border.Effect>-->
+                            </Border>
+                        
+                    </Popup>
+                    
+                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter TargetName="tx1" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="PART_Popup" Property="IsOpen" Value="False"/>
+                </Trigger>
+                <Trigger Property="Text" Value="">
+                    <Setter TargetName="tx1" Property="Visibility" Value="Visible"/>
+                    <Setter TargetName="PART_Popup" Property="IsOpen" Value="False"/>
+                </Trigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        
+                        <Condition Property="IsGrouping" Value="true"/>
+                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                </MultiTrigger>
+                
+
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
+    <Grid>
+    <Border CornerRadius="30,30,0,0" Background="#F7F7F7">
+        <StackPanel Margin="58,58,58,0">
+
+
+
+            <ComboBox x:Name="Search" StaysOpenOnEdit="True" Template="{StaticResource RoundTextBox}" BorderBrush="#A5A2A2" Background="#D9D9D9" BorderThickness="2" HorizontalAlignment="Center" Width="1802" Height="52" FontSize="25" GotFocus="TextBox_GotFocus" LostFocus="Search_LostFocus" IsEditable="True" IsDropDownOpen="True" IsTextSearchEnabled="False" SelectionChanged="Search_SelectionChanged">
+                <!--<ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="-8">
+                            <StackPanel Orientation="Horizontal" >
+                                <TextBlock Text="{Binding ProductCode}" Margin="5,6" Width="240" TextAlignment="Center" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+
+                                <TextBlock Text="{Binding Name}" Margin="10,6" Width="673" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                                <Border Background="#3B7C70" Width="1"/>
+                                <TextBlock Text="{Binding Price, StringFormat=⠀{0}грн}" Margin="10,6" Width="180" TextAlignment="Right" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                                <Border Background="#3B7C70" Width="1"/>
+                                <TextBlock Text="0" Margin="10,6" Width="205" TextAlignment="Right" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                                <Border Background="#3B7C70" Width="1"/>
+                                <TextBlock Text="Quantity" Margin="68,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                                <Border Background="#3B7C70" Width="1"/>
+                                <TextBlock Text="Amount" Margin="68,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                            </StackPanel>
+                            <Border />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>-->
+            </ComboBox>
+            <Border >
+                <StackPanel>
+            <Border VerticalAlignment="Top" Height="36" Background="#4BA090" CornerRadius="18,18,0,0" Width="1800" Margin="0,40,0,0">
+                <StackPanel Orientation="Horizontal" Margin="0">
+                    <TextBlock Text="Product #" Margin="78,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                    <Border Background="#3B7C70" Width="1"/>
+                    <TextBlock Text="Name" Margin="318,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                    <Border Background="#3B7C70" Width="1"/>
+                    <TextBlock Text="Price" Margin="75,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                    <Border Background="#3B7C70" Width="1"/>
+                    <TextBlock Text="Discount%" Margin="61.5,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                    <Border Background="#3B7C70" Width="1"/>
+                    <TextBlock Text="Quantity" Margin="68,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                    <Border Background="#3B7C70" Width="1"/>
+                    <TextBlock Text="Amount" Margin="68,6" Foreground="#21463F" FontFamily="Inter" FontWeight="SemiBold" FontSize="20"/>
+                </StackPanel>
+            </Border>
+            
+            <Border  Background="#EAE1E1" Height="650" Width="1800" Margin="0,0,0,0">
+
+
+                            <DataGrid x:Name="lv" Background="#EAE1E1" d:ItemsSource="{d:SampleData ItemCount=156}" AutoGenerateColumns="False" CurrentCellChanged="lv_CurrentCellChanged_1" FontWeight="SemiBold" CanUserAddRows="False" CanUserResizeRows="False" HorizontalContentAlignment="Center" FontSize="16" CanUserResizeColumns="False" CanUserSortColumns="False" GridLinesVisibility="All" HeadersVisibility="None" KeyDown="lv_KeyDown" KeyUp="lv_KeyUp" RowEditEnding="lv_RowEditEnding" AddingNewItem="lv_AddingNewItem">
+                        <DataGrid.Columns>
+                        <DataGridTextColumn Width="251"  IsReadOnly="True" Binding="{Binding ProductCode}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn IsReadOnly="True" Width="694" Binding="{Binding Name}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Width="200" Binding="{Binding Price, StringFormat=⠀{0}грн}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                                    <DataGridTextColumn IsReadOnly="False" Width="227" Binding="{Binding Discount, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="220">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
+                        <DataGridTextColumn IsReadOnly="True" Width="210" Binding="{Binding Amount, StringFormat=⠀{0}грн}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+             
+            </Border>
+                </StackPanel>
+                
+            </Border>
+            
+        </StackPanel>
+    
+
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0" Color="Gray" BlurRadius="30"/>
+        </Border.Effect>
+    </Border>
+    <Border Background="Gray" Height="2" VerticalAlignment="Bottom" Margin="0,0,0,140"/>
+    <Border Background="#FFFFFF" Width="1920" Height="140" VerticalAlignment="Bottom" Margin="-60,50,-60,0">
+        <StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+            <StackPanel Margin="0,15,0,0">
+                <TextBlock Text="Total" FontSize="36" FontFamily="Inter" Margin="-6, 3" FontWeight="Bold"/>
+                <TextBlock Text="Discount" FontSize="20" FontFamily="Inter" Margin="0, 3" FontWeight="Regular" Foreground="#262C2C"/>
+                <TextBlock Text="Payment" FontSize="20" FontFamily="Inter" Margin="0, 3" FontWeight="Regular" Foreground="#262C2C"/>
+            </StackPanel>
+            <StackPanel Margin="180,15,0,0">
+                <TextBlock x:Name="Total" Text="125.00грн" FontSize="36" FontFamily="Inter" Margin="-6, 3" FontWeight="Bold"/>
+                <TextBlock x:Name="Discount" HorizontalAlignment="Right" Text="5.00" FontSize="20" FontFamily="Inter" Margin="0, 3" FontWeight="Regular" Foreground="#262C2C"/>
+                <TextBlock x:Name="Payment" HorizontalAlignment="Right" Text="130.00" FontSize="20" FontFamily="Inter" Margin="0, 3" FontWeight="Regular" Foreground="#262C2C"/>
+            </StackPanel>
+            <Border Width="1" Background="Gray" Margin="30, 0"/>
+                <Button Background="#E95356" Width="305" Height="100" Foreground="Black" FontWeight="Bold" FontFamily="Inter" FontSize="28" Content="Delete" Margin="0,0,20,0" BorderBrush="#E95356" Click="Button_Click_1"/>
+                <Button Background="#A5C536" Width="305" Height="100" Foreground="Black" FontWeight="Bold" FontFamily="Inter" FontSize="28" Content="PAY" BorderBrush="#A5C536" Click="Button_Click"/>
+            </StackPanel>
+        <!--<Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="30" Color="Gray"/>
+                </Border.Effect>-->
+    </Border>
+    </Grid>
+</Page>

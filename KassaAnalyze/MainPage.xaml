@@ -1,0 +1,156 @@
+﻿<Page x:Class="KassaAnalyze.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:local="clr-namespace:KassaAnalyze"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="1028" d:DesignWidth="1920"
+      Title="Cashier">
+   
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+            <Grid>
+                <Border Background="#F0F5F9" CornerRadius="30,30,0,0"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Border Width="590" Background="#00A900" CornerRadius="18" Padding="10" Height="240" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25">
+                                <StackPanel Height="220" >
+                                    <Grid HorizontalAlignment="Center" Width="570">
+                                        <TextBlock Text="Income from goods" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="18" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                        <ComboBox x:Name="filter3" Margin="0,4,10,0" Width="200" Foreground="Black" BorderBrush="Black" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter3_SelectionChanged">
+                                            <ComboBoxItem Content="All time"/>
+                                            <ComboBoxItem Content="Day"/>
+                                            <ComboBoxItem Content="Month"/>
+                                            <ComboBoxItem Content="Year"/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                        <materialDesign:PackIcon Kind="CashPlus" Width="180" Height="180" Foreground="White"/>
+                                        <TextBlock x:Name="Income" Text="210000грн" Width="370" TextAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="60" Margin="10,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border Width="590" Background="Red" CornerRadius="18" Padding="10" Height="240" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25">
+                                <StackPanel Height="450" >
+                                    <Grid HorizontalAlignment="Center" Width="570">
+                                        <TextBlock Text="Сosts from goods" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="18" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                        <ComboBox x:Name="filter4" Margin="0,4,10,0" Width="200" Foreground="Black"  BorderBrush="Black" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter4_SelectionChanged">
+                                            <ComboBoxItem Content="All time"/>
+                                            <ComboBoxItem Content="Day"/>
+                                            <ComboBoxItem Content="Month"/>
+                                            <ComboBoxItem Content="Year"/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                        <materialDesign:PackIcon Kind="CashMinus" Width="180" Height="180" Foreground="White"/>
+                                        <TextBlock x:Name="Outcome" Text="210000грн" Width="370" TextAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="60" Margin="10,0" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                                </Border.Effect>
+                            </Border>
+                        </StackPanel>
+                        <Border Width="570" Background="White" CornerRadius="18" Padding="10" Height="530" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25">
+                            <StackPanel Height="510" >
+                                <Grid HorizontalAlignment="Center" Width="570">
+                                    <TextBlock Text="Most profitable products" Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                </Grid>
+                                <Border Height="1" Background="LightGray" Margin="5,10,5,0"/>
+                                <ListView x:Name="popular" Margin="0,5" Padding="0" d:ItemsSource="{d:SampleData ItemCount=156}" >
+                                    <ListView.Resources>
+                                        <local:IndexConverter x:Key="IndexConverter" />
+                                    </ListView.Resources>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <Grid Margin="-8,-4" Width="540">
+                                                <StackPanel Orientation="Horizontal"  >
+                                                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}, Converter={StaticResource IndexConverter}, StringFormat=⠀{0}.}"/>
+                                                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Path=Name}" />
+                                                </StackPanel>
+                                                <TextBlock FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Right" Text="{Binding Path=Amount, StringFormat=⠀{0}грн}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border Width="570" Background="White" CornerRadius="18" Padding="10" Height="530" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,25">
+                            <StackPanel Height="450" >
+                                <Grid HorizontalAlignment="Center" Width="570">
+                                    <TextBlock Text="Income" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="18" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                    <ComboBox x:Name="filter6" Margin="0,4,10,0" Width="200" Foreground="White" BorderBrush="White" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter1_SelectionChanged" SelectedIndex="0">
+                                        <ComboBoxItem Content="All time"/>
+                                        <ComboBoxItem Content="Day" Cursor="" IsEnabled="False"/>
+                                        <ComboBoxItem Content="Month"/>
+                                        <ComboBoxItem Content="Year"/>
+                                    </ComboBox>
+                                </Grid>
+
+                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                            </Border.Effect>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Width="890" Background="#FFFFFF" CornerRadius="18" Padding="10" Height="480" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25">
+                            <StackPanel Height="450" >
+                                <Grid HorizontalAlignment="Center" Width="870">
+                                    <TextBlock Text="Sales for this year" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                    <ComboBox x:Name="filter1" Margin="0,4,10,0" Width="200" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter1_SelectionChanged" SelectedIndex="0"/>
+                                </Grid>
+                                <lvc:CartesianChart x:Name="Graph1"  LegendLocation="None" Height="400" Margin="0,15,0,0">
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Sales" MinValue="0" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Month" MinRange="12" Labels="{Binding Labels}">
+
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                </lvc:CartesianChart>
+                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                            </Border.Effect>
+                        </Border>
+                        <Border Width="890" Background="#FFFFFF" CornerRadius="18" Padding="10" Height="480" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="25">
+                            <StackPanel Height="450" >
+                                <Grid HorizontalAlignment="Center" Width="870">
+                                    <TextBlock Text="Salary expenses for this year" Margin="10,10,0,0" FontSize="18" HorizontalAlignment="Left" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
+                                    <ComboBox x:Name="filter2" Margin="0,4,10,0" Width="200" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter2_SelectionChanged" SelectedIndex="0"/>
+                                </Grid>
+
+                                <lvc:CartesianChart x:Name="Graph2"  LegendLocation="None" Height="400" Margin="0,15,0,0">
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis Title="Sales" MinValue="0" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis Title="Month" MinRange="12" Labels="{Binding Labels}">
+
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                </lvc:CartesianChart>
+                            </StackPanel>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                            </Border.Effect>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
