@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DateBase;
 
 namespace KassaAnalyze
 {
@@ -20,6 +21,7 @@ namespace KassaAnalyze
     /// </summary>
     public partial class MainWindow : Window
     {
+        public User user;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,13 +30,22 @@ namespace KassaAnalyze
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             Close();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            pFrame.Navigate(new MainPage(user));
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            pFrame.Navigate(new Staff(user));
         }
     }
 }

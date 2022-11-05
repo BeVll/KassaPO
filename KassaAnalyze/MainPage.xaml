@@ -87,17 +87,34 @@
                             </Border.Effect>
                         </Border>
                         <Border Width="570" Background="White" CornerRadius="18" Padding="10" Height="530" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25,25">
-                            <StackPanel Height="450" >
+                            <StackPanel Height="510" >
                                 <Grid HorizontalAlignment="Center" Width="570">
-                                    <TextBlock Text="Income" Margin="10,10,0,0" HorizontalAlignment="Left" FontSize="18" Foreground="White" FontWeight="Bold" FontFamily="Bahnschrift SemiBold"/>
-                                    <ComboBox x:Name="filter6" Margin="0,4,10,0" Width="200" Foreground="White" BorderBrush="White" Style="{DynamicResource MaterialDesignOutlinedComboBox}" Padding="5" Height="30" HorizontalAlignment="Right" SelectionChanged="filter1_SelectionChanged" SelectedIndex="0">
-                                        <ComboBoxItem Content="All time"/>
-                                        <ComboBoxItem Content="Day" Cursor="" IsEnabled="False"/>
-                                        <ComboBoxItem Content="Month"/>
-                                        <ComboBoxItem Content="Year"/>
-                                    </ComboBox>
+                                    <TextBox x:Name="search_staff" materialDesign:HintAssist.Hint="Search worker" Width="535" Margin="20,10,0,0" HorizontalAlignment="Left" FontSize="18" FontWeight="Bold" FontFamily="Bahnschrift SemiBold" TextChanged="TextBox_TextChanged"/>
                                 </Grid>
+                                <ListView x:Name="staffs" Margin="10,5,5,5" Height="400" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Padding="0" d:ItemsSource="{d:SampleData ItemCount=156}" MouseDoubleClick="staffs_MouseDoubleClick" >
+                                    <ListView.Resources>
+                                        <local:IndexConverter x:Key="IndexConverter" />
+                                    </ListView.Resources>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate >
+                                            <Grid Margin="-8,-4" Width="535">
+                                                <StackPanel Orientation="Horizontal"  >
+                                                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Id}"/>
+                                                    <Border Width="1" Background="LightGray" Margin="2,0"/>
+                                                    <TextBlock FontSize="16" FontWeight="SemiBold" Width="250" Text="{Binding Path=Name}" />
+                                                    <Border Width="1" Background="LightGray" Margin="2,0"/>
+                                                    <TextBlock FontSize="16" FontWeight="SemiBold" Text="{Binding Path=Posada}" />
 
+                                                </StackPanel>
+                                                <TextBlock FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Right" Text="{Binding Path=Payment, StringFormat=⠀{0}грн}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <Button Margin="5" Background="#FF6A64" BorderBrush="#FF6A64" Content="Delete" Width="265" Click="Button_Click"/>
+                                    <Button x:Name="save_upd_btn" Margin="5" Content="Add" Width="265" Click="Button_Click_1" Cursor="Hand"/>
+                                </StackPanel>
                             </StackPanel>
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>

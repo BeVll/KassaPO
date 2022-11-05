@@ -1,0 +1,38 @@
+﻿<Page x:Class="KassaAnalyze.Staff"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KassaAnalyze"
+      mc:Ignorable="d" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="1028" d:DesignWidth="1920"
+      Title="Cashier">
+
+    <Grid>
+        <Grid>
+            <Border Background="#F0F5F9" CornerRadius="30,30,0,0"/>
+            <Border Width="1870" Background="White" CornerRadius="18" Padding="10" Height="980" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="25">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="Mode_user" Text="User edit" HorizontalAlignment="Center" FontSize="75" FontFamily="COmic Sans MS" FontWeight="Bold"/>
+                    <Border Height="2" Background="Gray" Margin="5"/>
+                    <TextBox x:Name="Name" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Name" Width="450" Margin="5"/>
+                    <TextBox x:Name="Login" Style="{DynamicResource MaterialDesignOutlinedTextBox}" materialDesign:HintAssist.Hint="Login" Width="450" Margin="5"/>
+                    <PasswordBox x:Name="Password" Style="{DynamicResource MaterialDesignOutlinedPasswordBox}" materialDesign:HintAssist.Hint="Password" Width="450" Margin="5"/>
+                    <ComboBox x:Name="Posada" Style="{DynamicResource MaterialDesignOutlinedComboBox}" materialDesign:HintAssist.Hint="Posada" Width="450" Margin="5"/>
+                    <TextBox x:Name="Payment" Style="{DynamicResource MaterialDesignOutlinedTextBox}"  materialDesign:HintAssist.Hint="Payment" Width="450" Margin="5" PreviewTextInput="Payment_PreviewTextInput"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="5" Background="#FF6A64" BorderBrush="#FF6A64" Content="Cancel" Width="220" Click="Button_Click"/>
+                        <Button x:Name="save_upd_btn" Margin="5" Content="Save" Width="220" Click="Button_Click_1" Cursor="Hand"/>
+                    </StackPanel>
+                    <TextBlock x:Name="ErrorMes" Text=""/>
+                </StackPanel>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" Color="LightGray" BlurRadius="30"/>
+                </Border.Effect>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
+

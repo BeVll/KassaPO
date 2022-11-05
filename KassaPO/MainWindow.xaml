@@ -16,7 +16,7 @@
                 <TextBlock FontFamily="Impact" Text="CashierSoft" Foreground="White" FontSize="22" Margin="15,12,0,0"/>
                 
             </StackPanel>
-
+            
             <Button Style="{DynamicResource MaterialDesignFlatButton}" Padding="0" HorizontalAlignment="Right" Background="#FF6A64" VerticalAlignment="Top" Width="135" Height="35" Margin="0,8,15,0" Cursor="Hand" Click="Button_Click">
                     <Button.Content>
                         <Border CornerRadius="18" Padding="0" >

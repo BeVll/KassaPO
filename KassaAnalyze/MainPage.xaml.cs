@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,13 +43,30 @@ namespace KassaAnalyze
         public MainPage()
         {
             InitializeComponent();
-
+            
         }
         public MainPage(User user)
         {
             List<double> values = new List<double>();
             InitializeComponent();
             StartSet();
+            Thread upd = new Thread(UpdateStaffs);
+            upd.Start();
+        }
+        private void UpdateStaffs()
+        {
+            while (true)
+            {
+                try
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(delegate { staffs.ItemsSource = con.GetUsers().Where(s => s.Name.Contains(search_staff.Text) == true); }));
+                    Thread.Sleep(1000);
+                }
+                catch
+                {
+
+                }
+            }
         }
         private void StartSet()
         {
@@ -100,7 +118,8 @@ namespace KassaAnalyze
             prybutok = prybutok.OrderByDescending(t => t.Amount).ToList();
             popular.AlternationCount = prybutok.Count + 1;
             popular.ItemsSource = prybutok;
-            
+            staffs.ItemsSource = con.GetUsers();
+            search_staff.Text = "";
         }
         private void filter1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -109,6 +128,10 @@ namespace KassaAnalyze
                 Goods goods = filter1.SelectedItem as Goods;
                 Filter1Set(goods);
             }
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            staffs.ItemsSource = con.GetUsers().Where(s => s.Name.Contains(search_staff.Text) == true);
         }
         private void Filter1Set(Goods g)
         {
@@ -217,6 +240,30 @@ namespace KassaAnalyze
                 else if (index == 3)
                     inc = con.GetSells().Where(s => s.DateTime >= DateTime.Now.AddYears(-1)).Sum(s => s.Amount);
                 Outcome.Text = Math.Round(inc, 2).ToString() + " грн";
+            }
+        }
+
+        private void staffs_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            User user = staffs.SelectedItem as User;
+            if(user != null)
+            {
+                NavigationService.Navigate(new Staff(user));
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Staff());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(staffs.SelectedItem != null)
+            {
+                User user = staffs.SelectedItem as User;
+                con.DeleteUser(user);
+                staffs.ItemsSource = con.GetUsers();
             }
         }
     }

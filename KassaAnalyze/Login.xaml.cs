@@ -38,12 +38,19 @@ namespace KassaAnalyze
             else
             {
                 User user = con.GetUsers().Where(s => s.Login == login.Text).FirstOrDefault();
-                if (user.Posada != "StoreWorker")
-                    login.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#E95356");
-                else if (user.Password == password.Password)
-                    NavigationService.Navigate(new MainPage(user));
-                else
-                    password.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#E95356");
+                if (user != null)
+                {
+                    if (user.Posada != "Manager")
+                        login.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#E95356");
+                    else if (user.Password == password.Password)
+                    {
+                        MainWindow w = Application.Current.MainWindow as MainWindow;
+                        w.user = user;
+                        NavigationService.Navigate(new MainPage(user));
+                    }
+                    else
+                        password.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFrom("#E95356");
+                }
             }
         }
 

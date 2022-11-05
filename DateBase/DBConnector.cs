@@ -131,5 +131,20 @@ namespace DateBase
         {
             return db.Sells.ToList();
         }
+        public void UpdateUser(User user)
+        {
+            db.Users.Update(user);
+            db.SaveChanges();
+        }
+        public void AddUser(User user)
+        {
+            db.Add(user);
+            db.SaveChanges();
+        }
+        public void DeleteUser(User user)
+        {
+            db.Remove(user);
+            db.SaveChanges();
+        }
     }
 }

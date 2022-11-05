@@ -30,7 +30,6 @@ namespace KassaPO
         bool refr = false;
         UserContext db = new UserContext();
         double discount = 0;
-        double discount2 = 0;
         User User;
         double total = 0.00;
         double payment = 0.00;
@@ -182,17 +181,13 @@ namespace KassaPO
                 Math.Round(payment, 2);
                 total = payment - (payment * (discount / 100.0));
                 Math.Round(total, 2);
-                discount2 = total - payment;
-                Math.Round(discount2, 2);
             }
             else
             {
                 total = 0;
                 payment = 0;
-                discount2 = 0;
             }
             Total.Text = total.ToString() + "грн";
-            Discount.Text = discount2.ToString();
             Payment.Text = payment.ToString();
         }
 

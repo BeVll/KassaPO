@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KassaPOadmins"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="False" WindowState="Normal" Closing="Window_Closing">
+        Title="MainWindow" Height="1080" Width="1920" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="False" WindowState="Maximized" Closing="Window_Closing">
 
     <Grid>
         <Grid Background="#292929" Height="80" VerticalAlignment="Top">
